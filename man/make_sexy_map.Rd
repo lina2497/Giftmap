@@ -7,7 +7,9 @@
 make_sexy_map(location, short_name, monochrome = FALSE)
 }
 \arguments{
-\item{location}{A character string describing the target, gets passed to osmdata::getbb().}
+\item{location}{A character string describing the target, gets passed to `osmdata::getbb`.
+Or a matrix of latitudes and longitudes, created by `create_bbox` or `crop_bbox`,
+that can be passed to `osmdata::opq`.}
 
 \item{short_name}{A character string to be used as a caption.}
 
@@ -20,5 +22,12 @@ Returns a aesthitically pleasing plot .
 Download highways data from the Open Streetmaps API for a specified location and plot a map.
 }
 \examples{
-make_sexy_map(location="Tuckenhay in England", short_name= "Tuckenhay", monochrome = TRUE)
+make_sexy_map(location = "Tuckenhay in England", short_name = "Tuckenhay", monochrome = TRUE)
+make_sexy_map(location = create_bbox(c(4.438865, 4.524072),
+                                     c(52.118952, 52.184626)),
+              short_name = "Leiden", monochrome = TRUE)
+leiden_bbox <- osmdata::getbb("Leiden")
+leiden_cropped <- crop_bbox(leiden_bbox, .45, .15, .25, .5)
+make_sexy_map(location = leiden_cropped,
+              short_name = "Leiden", monochrome = TRUE)
 }
