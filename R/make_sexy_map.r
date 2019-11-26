@@ -13,10 +13,10 @@
 
 
 make_sexy_map<-function(location,short_name,monochrome = FALSE){
-
+  bb<-getbb(location)
 
 print("Downloading Data")
-highway_data<-getbb(location)%>%
+highway_data<-bb%>%
   opq()%>%
   add_osm_feature(key = "highway") %>%
   osmdata_sf()
@@ -102,7 +102,7 @@ q<-p+pmap(
   ),
   plot_osm_lines)
 
-bb<-getbb(location)
+
 trim_x<-0.001
 trim_y <- 0.001
 
